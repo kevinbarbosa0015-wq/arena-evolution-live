@@ -250,5 +250,47 @@ seconds=30;
 $('voteinfo').textContent='Próxima decisão em '+seconds+' segundos';
 },1000);
 </script>
+  <script>
+const ARENA_SERVER = 'https://arena-server-2.onrender.com';
+let lastArenaEventId = 0;
+
+async function checkArenaEvents() {
+  try {
+    const response = await fetch(
+      `${ARENA_SERVER}/events?since=${lastArenaEventId}`
+    );
+
+    if (!response.ok) return;
+
+    const data = await response.json();
+
+    for (const event of data.events || []) {
+      lastArenaEventId = Math.max(lastArenaEventId, event.id);
+
+      if (event.type === 'attack') {
+        attack();
+      }
+
+      if (event.type === 'vote') {
+        const elements = {
+          fire: '🔥',
+          lightning: '⚡',
+          ice: '❄️',
+          nature: '🌿'
+        };
+
+        if (elements[event.element]) {
+          vote(elements[event.element]);
+        }
+      }
+    }
+  } catch (error) {
+    console.log('Aguardando o servidor...');
+  }
+}
+
+setInterval(checkArenaEvents, 2000);
+checkArenaEvents();
+  </script>
 </body>
 </html>
