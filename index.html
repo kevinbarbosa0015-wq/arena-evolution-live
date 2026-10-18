@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Arena Evolution LIVE</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090b18;color:#fff;font-family:Arial,sans-serif;text-align:center}
+header{padding:20px 10px;background:linear-gradient(120deg,#30116b,#075a78)}
+h1{margin:0;font-size:27px}
+header p{color:#d9d4ff;margin-bottom:0}
+main{max-width:540px;margin:auto;padding:14px}
+.card{background:#15182b;border:1px solid #343957;border-radius:17px;padding:16px;margin:12px 0}
+.live{color:#ff5c87;font-weight:bold}
+#monster{font-size:100px;filter:drop-shadow(0 0 18px #9c65ff);margin:12px}
+#name{font-size:22px;font-weight:bold}
+.bar{height:13px;background:#30344b;border-radius:20px;overflow:hidden;margin:10px 0}
+#xpbar{height:100%;width:0;background:linear-gradient(90deg,#6e42ff,#31e9e0);transition:width .3s}
+.stats{display:flex;justify-content:space-around;gap:8px}
+.stat{background:#20243b;padding:10px;border-radius:12px;flex:1}
+.stat b{display:block;font-size:20px;color:#79f3e6}
+button{background:#7448f4;border:0;color:white;padding:13px 10px;border-radius:11px;font-weight:bold;font-size:14px;margin:4px;cursor:pointer}
+button:active{transform:scale(.96)}
+.secondary{background:#263752}
+.vote{width:43%;min-width:120px}
+#feed{height:120px;overflow:auto;text-align:left;font-size:13px;color:#cbd1ed}
+#feed div{padding:6px;border-bottom:1px solid #282d43}
+.small{font-size:12px;color:#aeb5d1}
+</style>
+</head>
+<body>
+<header>
+<h1>⚔️ ARENA EVOLUTION</h1>
+<p>LIVE MODE • A comunidade decide!</p>
+</header>
+<main>
+<div class="card">
+<div class="live">● ARENA AO VIVO</div>
+<div id="monster">🥚</div>
+<div id="name">Ovo misterioso</div>
+<div class="bar"><div id="xpbar"></div></div>
+<div id="xptext">0 / 100 XP para evoluir</div>
+</div>
+
+<div class="stats">
+<div class="stat">Nível<b id="level">1</b></div>
+<div class="stat">Energia<b id="energy">100</b></div>
+<div class="stat">Cristais<b id="coins">0</b></div>
+</div>
+
+<div class="card">
+<h3>🗳️ VOTAÇÃO DA COMUNIDADE</h3>
+<p>Qual poder a criatura deve receber?</p>
+<button class="vote" onclick="vote('🔥')">🔥 Fogo <span id="fire">0</span></button>
+<button class="vote" onclick="vote('⚡')">⚡ Raio <span id="light">0</span></button>
+<button class="vote" onclick="vote('❄️')">❄️ Gelo <span id="ice">0</span></button>
+<button class="vote" onclick="vote('🌿')">🌿 Natureza <span id="nature">0</span></button>
+<p id="voteinfo">A votação termina em 30 segundos!</p>
+</div>
+
+<div class="card">
+<h3>👾 CHEFÃO DA ARENA</h3>
+<div style="font-size:48px">🐉</div>
+<div class="bar"><div id="bossbar" style="height:100%;width:100%;background:#ff4e75"></div></div>
+<p id="bosstext">Vida do chefão: 1000 / 1000</p>
+<button onclick="attack()">⚔️ ATACAR CHEFÃO</button>
+</div>
+
+<div class="card">
+<h3>💬 ATIVIDADE DA ARENA</h3>
+<div id="feed"><div>🎮 Arena iniciada! A comunidade está chegando...</div></div>
+<p class="small">Os botões são testes
+mkdir -p ~/arena-live
+cd ~/arena-live
+cat > index.html <<'EOF'
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Arena Evolution LIVE</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090b18;color:#fff;font-family:Arial,sans-serif;text-align:center}
+header{padding:20px 10px;background:linear-gradient(120deg,#30116b,#075a78)}
+h1{margin:0;font-size:27px}
+header p{color:#d9d4ff;margin-bottom:0}
+main{max-width:540px;margin:auto;padding:14px}
+.card{background:#15182b;border:1px solid #343957;border-radius:17px;padding:16px;margin:12px 0}
+.live{color:#ff5c87;font-weight:bold}
+#monster{font-size:100px;filter:drop-shadow(0 0 18px #9c65ff);margin:12px}
+#name{font-size:22px;font-weight:bold}
+.bar{height:13px;background:#30344b;border-radius:20px;overflow:hidden;margin:10px 0}
+#xpbar{height:100%;width:0;background:linear-gradient(90deg,#6e42ff,#31e9e0);transition:width .3s}
+.stats{display:flex;justify-content:space-around;gap:8px}
+.stat{background:#20243b;padding:10px;border-radius:12px;flex:1}
+.stat b{display:block;font-size:20px;color:#79f3e6}
+button{background:#7448f4;border:0;color:white;padding:13px 10px;border-radius:11px;font-weight:bold;font-size:14px;margin:4px;cursor:pointer}
+button:active{transform:scale(.96)}
+.secondary{background:#263752}
+.vote{width:43%;min-width:120px}
+#feed{height:120px;overflow:auto;text-align:left;font-size:13px;color:#cbd1ed}
+#feed div{padding:6px;border-bottom:1px solid #282d43}
+.small{font-size:12px;color:#aeb5d1}
+</style>
+</head>
+<body>
+<header>
+<h1>⚔️ ARENA EVOLUTION</h1>
+<p>LIVE MODE • A comunidade decide!</p>
+</header>
+<main>
+<div class="card">
+<div class="live">● ARENA AO VIVO</div>
+<div id="monster">🥚</div>
+<div id="name">Ovo misterioso</div>
+<div class="bar"><div id="xpbar"></div></div>
+<div id="xptext">0 / 100 XP para evoluir</div>
+</div>
+
+<div class="stats">
+<div class="stat">Nível<b id="level">1</b></div>
+<div class="stat">Energia<b id="energy">100</b></div>
+<div class="stat">Cristais<b id="coins">0</b></div>
+</div>
+
+<div class="card">
+<h3>🗳️ VOTAÇÃO DA COMUNIDADE</h3>
+<p>Qual poder a criatura deve receber?</p>
+<button class="vote" onclick="vote('🔥')">🔥 Fogo <span id="fire">0</span></button>
+<button class="vote" onclick="vote('⚡')">⚡ Raio <span id="light">0</span></button>
+<button class="vote" onclick="vote('❄️')">❄️ Gelo <span id="ice">0</span></button>
+<button class="vote" onclick="vote('🌿')">🌿 Natureza <span id="nature">0</span></button>
+<p id="voteinfo">A votação termina em 30 segundos!</p>
+</div>
+
+<div class="card">
+<h3>👾 CHEFÃO DA ARENA</h3>
+<div style="font-size:48px">🐉</div>
+<div class="bar"><div id="bossbar" style="height:100%;width:100%;background:#ff4e75"></div></div>
+<p id="bosstext">Vida do chefão: 1000 / 1000</p>
+<button onclick="attack()">⚔️ ATACAR CHEFÃO</button>
+</div>
+
+<div class="card">
+<h3>💬 ATIVIDADE DA ARENA</h3>
+<div id="feed"><div>🎮 Arena iniciada! A comunidade está chegando...</div></div>
+<p class="small">Os botões são testes locais. A conexão com o chat real será configurada depois.</p>
+</div>
+
+<div class="card">
+<h3>📜 COMANDOS PLANEJADOS PARA O CHAT</h3>
+<p>!lutar — atacar o chefão</p>
+<p>!votar fogo / raio / gelo / natureza</p>
+<p>!status — consultar a criatura</p>
+<p>!ranking — ver os melhores jogadores</p>
+</div>
+<button class="secondary" onclick="resetGame()">🔄 Reiniciar jogo</button>
+<p class="small">Seu progresso é salvo neste navegador.</p>
+</main>
+<script>
+let level=1,xp=0,energy=100,coins=0,boss=1000;
+let votes={'🔥':0,'⚡':0,'❄️':0,'🌿':0};
+let power='🔥',seconds=30;
+const $=id=>document.getElementById(id);
+const creatures=['🥚','🐣','🦎','🐲','🐉','👑🐉'];
+const names=['Ovo misterioso','Criatura recém-nascida','Guardião iniciante','Dragão desperto','Dragão ancestral','Lenda da arena'];
+
+function log(msg){
+let el=document.createElement('div');
+el.textContent=msg;
+$('feed').prepend(el);
+while($('feed').children.length>25)$('feed').lastChild.remove();
+}
+function render(){
+$('monster').textContent=creatures[Math.min(level-1,creatures.length-1)];
+$('name').textContent=names[Math.min(level-1,names.length-1)];
+$('level').textContent=level;
+$('energy').textContent=energy;
+$('coins').textContent=coins;
+$('xpbar').style.width=Math.min(100,xp)+'%';
+$('xptext').textContent=xp+' / 100 XP para evoluir';
+$('bossbar').style.width=(boss/10)+'%';
+$('bosstext').textContent='Vida do chefão: '+boss+' / 1000';
+}
+function vote(v){
+votes[v]++;
+power=v;
+$('fire').textContent=votes['🔥'];
+$('light').textContent=votes['⚡'];
+$('ice').textContent=votes['❄️'];
+$('nature').textContent=votes['🌿'];
+log('🗳️ Um voto foi registrado: '+v);
+}
+function attack(){
+if(energy<10){log('⚠️ Energia baixa! Aguarde para recuperar.');return}
+energy-=10;
+let damage=25+level*5;
+boss=Math.max(0,boss-damage);
+coins+=5;
+xp+=15;
+log('⚔️ Você causou '+damage+' de dano ao chefão!');
+if(boss===0){
+coins+=100;
+boss=1000;
+log('🏆 CHEFÃO DERROTADO! +100 cristais. Um novo chefão chegou!');
+}
+if(xp>=100){
+xp-=100;
+level++;
+log('✨ EVOLUÇÃO! Sua criatura chegou ao nível '+level+'!');
+}
+render();
+}
+function resetGame(){
+if(!confirm('Tem certeza que deseja reiniciar o progresso?'))return;
+level=1;xp=0;energy=100;coins=0;boss=1000;
+votes={'🔥':0,'⚡':0,'❄️':0,'🌿':0};
+localStorage.removeItem('arenaEvolution');
+render();log('🔄 Jogo reiniciado.');
+}
+function save(){
+localStorage.setItem('arenaEvolution',JSON.stringify({level,xp,energy,coins,boss,votes,power}));
+}
+function load(){
+try{
+let s=JSON.parse(localStorage.getItem('arenaEvolution'));
+if(s){level=s.level||1;xp=s.xp||0;energy=s.energy??100;coins=s.coins||0;boss=s.boss??1000;votes=s.votes||votes;power=s.power||power;}
+}catch(e){}
+}
+load();render();
+setInterval(()=>{
+energy=Math.min(100,energy+5);
+xp+=1;
+if(xp>=100){xp-=100;level++;log('✨ Sua criatura evoluiu para o nível '+level+'!');}
+render();save();
+},3000);
+setInterval(()=>{
+seconds--;
+if(seconds<=0){
+let winner=Object.keys(votes).sort((a,b)=>votes[b]-votes[a])[0];
+power=winner;
+log('📣 VOTAÇÃO ENCERRADA! Poder escolhido: '+winner);
+votes={'🔥':0,'⚡':0,'❄️':0,'🌿':0};
+$('fire').textContent='0';$('light').textContent='0';
+$('ice').textContent='0';$('nature').textContent='0';
+seconds=30;
+}
+$('voteinfo').textContent='Próxima decisão em '+seconds+' segundos';
+},1000);
+</script>
+</body>
+</html>
