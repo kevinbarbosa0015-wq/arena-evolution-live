@@ -8,25 +8,29 @@
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#090b18;color:#fff;font-family:Arial,sans-serif;text-align:center}
-header{padding:20px 10px;background:linear-gradient(120deg,#30116b,#075a78)}
-h1{margin:0;font-size:27px}
-header p{color:#d9d4ff}
-main{max-width:540px;margin:auto;padding:14px}
-.card{background:#15182b;border:1px solid #343957;border-radius:17px;padding:16px;margin:12px 0}
-.live{color:#ff5c87;font-weight:bold}
-#monster{font-size:100px;filter:drop-shadow(0 0 18px #9c65ff);margin:12px}
-#name{font-size:22px;font-weight:bold}
-.bar{height:13px;background:#30344b;border-radius:20px;overflow:hidden;margin:10px 0}
+header{padding:8px;background:linear-gradient(120deg,#30116b,#075a78)}
+h1{margin:0;font-size:20px}
+header p{font-size:11px;margin:3px 0;color:#d9d4ff}
+main{width:100%;max-width:1000px;margin:auto;padding:6px}
+.card{background:#15182b;border:1px solid #343957;border-radius:12px;padding:8px;margin:6px 0}
+.live{color:#ff5c87;font-weight:bold;font-size:12px}
+#monster{font-size:54px;line-height:1.1;margin:3px;filter:drop-shadow(0 0 12px #9c65ff)}
+#name{font-size:16px;font-weight:bold}
+.bar{height:9px;background:#30344b;border-radius:20px;overflow:hidden;margin:6px 0}
 #xpbar{height:100%;width:0;background:linear-gradient(90deg,#6e42ff,#31e9e0)}
-.stats{display:flex;justify-content:space-around;gap:8px}
-.stat{background:#20243b;padding:10px;border-radius:12px;flex:1}
-.stat b{display:block;font-size:20px;color:#79f3e6}
-button{background:#7448f4;border:0;color:white;padding:13px 10px;border-radius:11px;font-weight:bold;font-size:14px;margin:4px;cursor:pointer}
+.stats{display:flex;justify-content:space-around;gap:5px}
+.stat{background:#20243b;padding:6px;border-radius:9px;flex:1;font-size:12px}
+.stat b{display:block;font-size:16px;color:#79f3e6}
+button{background:#7448f4;border:0;color:white;padding:9px 7px;border-radius:9px;font-weight:bold;font-size:12px;margin:3px;cursor:pointer}
 .secondary{background:#263752}
-.vote{width:43%;min-width:120px}
-#feed{height:120px;overflow:auto;text-align:left;font-size:13px;color:#cbd1ed}
-#feed div{padding:6px;border-bottom:1px solid #282d43}
-.small{font-size:12px;color:#aeb5d1}
+.vote{width:45%;min-width:0}
+#feed{height:65px;overflow:auto;text-align:left;font-size:11px;color:#cbd1ed}
+#feed div{padding:4px;border-bottom:1px solid #282d43}
+.small{font-size:10px;color:#aeb5d1}
+@media(min-width:600px){
+ main{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:start}
+ main>.stats{grid-column:1/-1}
+}
 </style>
 </head>
 <body>
